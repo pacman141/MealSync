@@ -1,0 +1,284 @@
+src/
+│
+├── app/
+│   ├── navigation/
+│   │   ├── RootNavigator.tsx
+│   │   ├── AuthNavigator.tsx
+│   │   └── MainNavigator.tsx
+│   │
+│   ├── store/
+│   │   ├── store.ts
+│   │   ├── rootReducer.ts
+│   │   └── hooks.ts
+│   │
+│   └── theme/
+│       ├── colors.ts
+│       ├── spacing.ts
+│       └── index.ts
+│
+├── features/
+│
+│   ├── auth/
+│   │   ├── components/
+│   │   │   ├── AuthForm.tsx
+│   │   │   ├── PasswordInput.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── LoginScreen.tsx
+│   │   │   ├── RegisterScreen.tsx
+│   │   │   ├── ForgotPasswordScreen.tsx
+│   │   │   ├── VerifyEmailScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── authSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── auth.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useAuth.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── auth.types.ts
+│   │   │
+│   │   └── index.ts
+│
+│   ├── dashboard/
+│   │   ├── components/
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── DashboardScreen.tsx
+│   │   │   ├── ListDetailScreen.tsx
+│   │   │   ├── CreateListScreen.tsx
+│   │   │   ├── EditListScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── dashboardSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── list.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useDashboard.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── dashboard.types.ts
+│   │   │
+│   │   └── index.ts
+│
+│   ├── mealPlanner/
+│   │   ├── components/
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── MealPlannerScreen.tsx
+│   │   │   ├── AddMealScreen.tsx
+│   │   │   ├── MealDetailScreen.tsx
+│   │   │   ├── SuggestedMealsScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── mealPlannerSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── meal.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useMealPlanner.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── mealPlanner.types.ts
+│   │   │
+│   │   └── index.ts
+│
+│   ├── shoppingList/
+│   │   ├── components/
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── ShoppingListScreen.tsx
+│   │   │   ├── AddProductScreen.tsx
+│   │   │   ├── EditProductScreen.tsx
+│   │   │   ├── CategoryViewScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── shoppingListSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── shoppingList.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useShoppingList.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── shoppingList.types.ts
+│   │   │
+│   │   └── index.ts
+│
+│   ├── scanner/
+│   │   ├── components/
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── ScannerScreen.tsx
+│   │   │   ├── ScanResultScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── scannerSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── barcode.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useScanner.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── scanner.types.ts
+│   │   │
+│   │   └── index.ts
+│
+│   ├── budget/
+│   │   ├── components/
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── BudgetScreen.tsx
+│   │   │   ├── BudgetDetailScreen.tsx
+│   │   │   ├── MonthlyStatsScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── budgetSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── budget.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useBudget.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── budget.types.ts
+│   │   │
+│   │   └── index.ts
+│
+│   ├── collaboration/
+│   │   ├── components/
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── SharedListScreen.tsx
+│   │   │   ├── InviteUserScreen.tsx
+│   │   │   ├── ParticipantsScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── collaborationSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── collaboration.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useCollaboration.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── collaboration.types.ts
+│   │   │
+│   │   └── index.ts
+│
+│   ├── user/
+│   │   ├── components/
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── ProfileScreen.tsx
+│   │   │   ├── EditProfileScreen.tsx
+│   │   │   ├── SettingsScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── userSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── user.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useUser.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── user.types.ts
+│   │   │
+│   │   └── index.ts
+│
+│   ├── notifications/
+│   │   ├── components/
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── screens/
+│   │   │   ├── ReminderScreen.tsx
+│   │   │   ├── ThemeScreen.tsx
+│   │   │   └── index.ts
+│   │   │
+│   │   ├── store/
+│   │   │   └── notificationsSlice.ts
+│   │   │
+│   │   ├── services/
+│   │   │   └── notification.service.ts
+│   │   │
+│   │   ├── hooks/
+│   │   │   └── useNotifications.ts
+│   │   │
+│   │   ├── types/
+│   │   │   └── notifications.types.ts
+│   │   │
+│   │   └── index.ts
+│
+├── shared/
+│   ├── components/
+│   │   └── index.ts
+│   ├── hooks/
+│   ├── services/
+│   ├── utils/
+│   ├── constants/
+│   └── types/
+│
+└── assets/
+
+----------------------------------------------------------------
+commande PowerShell pour créer la structure
+----------------------------------------------------------------
+
+const fs = require("fs");
+const path = require("path");
+
+const featureName = process.argv[2];
+
+if (!featureName) {
+  console.log("❌ Donne un nom de feature");
+  process.exit(1);
+}
+
+const basePath = `src/features/${featureName}`;
+
+const folders = [
+  "components",
+  "screens",
+  "store",
+  "services",
+  "hooks",
+  "types"
+];
+
+folders.forEach(folder => {
+  const fullPath = path.join(basePath, folder);
+  fs.mkdirSync(fullPath, { recursive: true });
+});
+
+fs.writeFileSync(`${basePath}/index.ts`, "");
+
+console.log(`✅ Feature "${featureName}" créée`);
