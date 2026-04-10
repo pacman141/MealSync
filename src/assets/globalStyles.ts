@@ -6,8 +6,11 @@ export const GlobalStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.background,
     },
-    title: {
-        /* ...Typography.h1, */
-        color: Colors.text,
+    h1: {
+        fontSize: 24,
+        fontWeight: "700",
+    },
+    ph: {
+        paddingHorizontal: 20,
     },
 });

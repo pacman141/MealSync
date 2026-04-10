@@ -21,7 +21,8 @@ export type ButtonTextColor = "light" | "dark";
 export interface ButtonCustomProps {
     title: string;
     type?: ButtonVariant;
-    style?: object;
+    styleButton?: object;
+    styleText?: object;
     titleColor?: ButtonTextColor;
     onPress(): void;
 }

@@ -8,4 +8,5 @@ export const Colors = {
     error: "#FF3B30",
     dark: "#333333",
     backgroundInput: "#F9F9F9",
+    white: "#fff",
 };

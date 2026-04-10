@@ -1,41 +1,54 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import Input from "../../../shared/components/Input";
 import ButtonCustom from "../../../shared/components/ButtonCustom";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Colors } from "../../../assets";
+import { Colors, GlobalStyles } from "../../../assets";
+import { LoginFormProps } from "../types/auth.types";
 
-const LoginForm = () => {
+export const LoginForm = ({onClickRegister, onClickForgotPassword}: LoginFormProps) => {
+
+    const handleLogin = () => { 
+        console.log("JE ME CONNECTE")
+     }
+
     return (
         <View style={styles.container}>
             <View>
+                <Text style={{ ...GlobalStyles.h1, ...styles.h1 }}>Se connecter</Text>
+
+                {/* Email */}
                 <View style={styles.inputGroup}>
                     <Icon name="mail" size={20} color={Colors.text} />
-                    <Input placeholder="Adresse E-mail" autoCorrect={false} autoCapitalize="none" textContentType="emailAddress" keyboardType="email-address"/>
+                    <Input placeholder="Adresse E-mail" autoCorrect={false} autoCapitalize="none" textContentType="emailAddress" keyboardType="email-address" />
                 </View>
 
-                <View style={styles.inputGroup}>
-                    <Icon name="password" size={20}  color={Colors.text} />
+                {/* Password */}
+                <View style={{...styles.inputGroup, marginBottom: 10}}>
+                    <Icon name="password" size={20} color={Colors.text} />
                     <Input placeholder="Mot de passe" secureTextEntry={true} autoCapitalize="none" autoCorrect={false} textContentType="password" />
                 </View>
-                <ButtonCustom title="Mot de passe oublié" onPress={() => console.log("Mot de passe oublié")} style={styles.btnForgotPassword} />
+
+                <ButtonCustom title="Mot de passe oublié" onPress={onClickForgotPassword} styleButton={styles.btnForgotPassword} />
             </View>
 
-            <View>
-                <ButtonCustom title="Se connecter" type="linear" onPress={() => console.log("Se connecter")} />
-                <View>
-                    <ButtonCustom title="S'inscrire" onPress={() => console.log("S'inscrire")} />
+            <View style={styles.bottomContainer}>
+                <ButtonCustom title="Se connecter" type="color" onPress={handleLogin} />
+
+                <View style={styles.btnRegisterContainer}>
+                    <ButtonCustom title="S'inscrire" onPress={onClickRegister} styleText={styles.btnRegisterText} />
                 </View>
             </View>
         </View>
     );
 };
 
-export default LoginForm;
-
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         justifyContent: "space-between",
+    },
+    bottomContainer: {
+        justifyContent: "center",
+        marginTop: 50,
     },
     inputGroup: {
         marginBottom: 20,
@@ -45,8 +58,18 @@ const styles = StyleSheet.create({
         paddingLeft: 8,
         borderRadius: 15,
     },
-
     btnForgotPassword: {
         alignItems: "flex-end",
+    },
+    btnRegisterContainer: {
+        marginTop: 10,
+        alignItems: "center",
+    },
+    btnRegisterText: {
+        fontWeight: "600",
+    },
+    h1: {
+        textAlign: "center",
+        marginBottom: 20,
     },
 });

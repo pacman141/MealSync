@@ -4,32 +4,32 @@ import LinearGradient from "react-native-linear-gradient";
 import { ButtonCustomProps, ButtonTextProps } from "../types/types";
 import { Colors } from "../../assets";
 
-const ButtonCustom = ({ title, type, style, titleColor = "dark", onPress }: ButtonCustomProps) => {
-    const ButtonText = ({ color }: ButtonTextProps) => <Text style={{ color: color === "dark" ? Colors.text : Colors.primaryDark }}>{title}</Text>;
+const ButtonCustom = ({ title, type, styleButton, styleText, titleColor = "dark", onPress }: ButtonCustomProps) => {
+    const ButtonText = ({ color }: ButtonTextProps) => <Text style={{ color: color === "dark" ? Colors.text : Colors.white, fontSize: type ? 18 : 16, ...styleText }}>{title}</Text>;
 
     if (type === "color") {
         return (
-            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...style, backgroundColor: Colors.primaryDark }}>
-                <ButtonText color="dark" />
+            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton, backgroundColor: Colors.primaryDark }}>
+                <ButtonText color="light" />
             </TouchableOpacity>
         );
     } else if (type === "light") {
         return (
-            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...style, backgroundColor: Colors.primaryLight }}>
+            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton, backgroundColor: Colors.primaryLight }}>
                 <ButtonText color="dark" />
             </TouchableOpacity>
         );
     } else if (type === "linear") {
         return (
-            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...style }}>
+            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton }}>
                 <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} colors={[Colors.primaryDark, Colors.primaryLight]} style={styles.linearGradient}>
-                    <ButtonText color="dark" />
+                    <ButtonText color="light" />
                 </LinearGradient>
             </TouchableOpacity>
         );
     } else {
         return (
-            <TouchableOpacity onPress={onPress} style={style}>
+            <TouchableOpacity onPress={onPress} style={styleButton}>
                 <ButtonText color={titleColor} />
             </TouchableOpacity>
         );
