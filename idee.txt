@@ -1,0 +1,6 @@
+Filtres liste de course
+🔥 “À faire bientôt”
+⚠️ “Budget dépassé”
+🟢 “Listes terminées”
+🧊 “Inactives”
+👥 2. Filtres avancés (très bon pour portfolio) 🤝 Partagées Avec moi Par moi Partagées (collaboratif)

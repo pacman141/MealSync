@@ -26,3 +26,19 @@ export interface ButtonCustomProps {
     titleColor?: ButtonTextColor;
     onPress(): void;
 }
+
+export interface TextAppProps {
+    children: React.ReactNode
+    style?: object
+}
+
+export interface BottomSheetContainerProps {
+    children: React.ReactNode;
+    bgColor?: string;
+}
+
+export type BottomSheetRef = {
+    snapToIndex: (index: -1 | 0 | 1) => void;
+    open: () => void;
+    close: () => void;
+};

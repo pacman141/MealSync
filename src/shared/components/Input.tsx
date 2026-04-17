@@ -4,7 +4,7 @@ import { Colors } from "../../assets";
 import { InputProps } from "../types/types";
 
 const Input = ({ style, ...props }: InputProps) => {
-    return <TextInput style={{ ...styles.textInput, ...style, backgroundColor: Colors.backgroundInput }} {...props}/>;
+    return <TextInput style={{ ...styles.textInput, ...style, backgroundColor: Colors.white }} {...props} />;
 };
 
 export default Input;
@@ -14,5 +14,6 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 15,
         paddingHorizontal: 8,
+        color: Colors.text,
     },
 });

@@ -1,15 +1,16 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Input from "../../../shared/components/Input";
 import ButtonCustom from "../../../shared/components/ButtonCustom";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Colors, GlobalStyles } from "../../../assets";
 import { RegisterFormProps } from "../types/auth.types";
+import TextApp from "../../../shared/components/TextApp";
 
 export const RegisterForm = ({onClickLogin, onClickForgotPassword}: RegisterFormProps) => {
     return (
         <View style={styles.container}>
             <View>
-                <Text style={{ ...GlobalStyles.h1, ...styles.h1 }}>Créer un compte</Text>
+                <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>Créer un compte</TextApp>
 
                 {/* Username */}
                 <View style={styles.inputGroup}>
@@ -41,7 +42,7 @@ export const RegisterForm = ({onClickLogin, onClickForgotPassword}: RegisterForm
             <View style={styles.bottomContainer}>
                 <ButtonCustom title="Créer un compte" type="color" onPress={() => console.log("Créer un compte")} />
                 <View style={styles.btnRegisterContainer}>
-                    <ButtonCustom title="Se connecter" onPress={onClickLogin} styleText={styles.btnRegisterText} />
+                    <ButtonCustom title="Se connecter" onPress={onClickLogin} />
                 </View>
             </View>
         </View>
@@ -70,9 +71,6 @@ const styles = StyleSheet.create({
     btnRegisterContainer: {
         marginTop: 10,
         alignItems: "center",
-    },
-    btnRegisterText: {
-        fontWeight: "600",
     },
     h1: {
         textAlign: "center",

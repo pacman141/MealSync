@@ -4,37 +4,21 @@ import { Colors, GlobalStyles } from "../../../assets";
 import { LoginForm } from "./LoginForm";
 import { RegisterForm } from "./RegisterForm";
 import { ForgotPasswordForm } from "./ForgotPasswordForm";
-import ButtonCustom from "../../../shared/components/ButtonCustom";
-import { useState } from "react";
-import { NamesForm } from "../types/auth.types";
+import { FormContainerProps, NamesForm } from "../types/auth.types";
 
-export const FormContainer = () => {
+export const FormContainer = ({ formShow, onClickBottomSheet }: FormContainerProps) => {
     const insets = useSafeAreaInsets();
-
-    const [formShow, setFormShow] = useState<NamesForm>(null);
-
-    const handlePress = (formName: NamesForm) => {
-        setFormShow(formName);
-    };
 
     return (
         <View style={styles.container}>
-            <View style={{ ...GlobalStyles.ph, ...styles.btnsContainer }}>
-                <ButtonCustom title="Se connecter" type="color" onPress={() => handlePress("login")} />
-                <ButtonCustom title="Créer un compte" type="light" onPress={() => handlePress("register")} styleButton={styles.btnRegister} />
-                <ButtonCustom title="Mot de passe oublié" onPress={() => handlePress("forgotPassword")} styleButton={styles.btnForgotPassword} />
-            </View>
-
             <View style={{ ...GlobalStyles.ph, ...styles.formContainer, paddingBottom: insets.bottom + 50 }}>
                 {formShow === "login" && (
-                    <LoginForm onClickRegister={() => handlePress("register")} onClickForgotPassword={() => handlePress("forgotPassword")} />
+                    <LoginForm onClickRegister={() => onClickBottomSheet("register")} onClickForgotPassword={() => onClickBottomSheet("forgotPassword")} />
                 )}
                 {formShow === "register" && (
-                    <RegisterForm onClickLogin={() => handlePress("login")} onClickForgotPassword={() => handlePress("forgotPassword")} />
+                    <RegisterForm onClickLogin={() => onClickBottomSheet("login")} onClickForgotPassword={() => onClickBottomSheet("forgotPassword")} />
                 )}
-                {formShow === "forgotPassword" && (
-                    <ForgotPasswordForm onClickLogin={() => handlePress("login")} />
-                )}
+                {formShow === "forgotPassword" && <ForgotPasswordForm onClickLogin={() => onClickBottomSheet("login")} />}
             </View>
         </View>
     );
@@ -46,22 +30,9 @@ const styles = StyleSheet.create({
         justifyContent: "flex-end",
     },
     formContainer: {
-        backgroundColor: Colors.backgroundDark,
+        flex: 1,
+        backgroundColor: Colors.background,
         paddingTop: 20,
-        borderTopStartRadius: 40,
-        borderTopEndRadius: 40,
-        position: "absolute",
         width: "100%",
-    },
-    btnsContainer: {
-        height: "50%",
-    },
-    btnRegister: {
-        alignItems: "center",
-        marginVertical: 10,
-    },
-    btnForgotPassword: {
-        alignItems: "center",
-        marginTop: 10,
     },
 });

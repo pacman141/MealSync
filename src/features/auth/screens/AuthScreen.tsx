@@ -1,58 +1,84 @@
 // AuthScreen.tsx
-import React, { useCallback, useMemo, useRef } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
 import ScreenContainer from "../../../shared/components/ScreenContainer";
 import { FormContainer } from "../components";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Colors } from "../../../assets";
+import { Colors, GlobalStyles } from "../../../assets";
+import { Typography } from "../../../assets/fonts";
+import TextApp from "../../../shared/components/TextApp";
+import ButtonCustom from "../../../shared/components/ButtonCustom";
+import { NamesForm } from "../types/auth.types";
+import { BottomSheetContainer } from "../../../shared/components/BottomSheetContainer";
+import { BottomSheetRef } from "../../../shared/types/types";
 
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+export const AuthScreen = () => {
+    const bottomSheetRef = useRef<BottomSheetRef>(null);
+    const [formShow, setFormShow] = useState<NamesForm>(null);
 
-const AuthScreen = () => {
-    const bottomSheetRef = useRef<BottomSheet>(null);
+    const handlePress = (formName: NamesForm) => setFormShow(formName);
 
-    const handleSheetChanges = useCallback((index: number) => {
-        console.log("🚀 ~ AuthScreen ~ index:", index);
-    }, []);
+    useEffect(() => {
+        if (formShow) {
+            requestAnimationFrame(() => {
+                bottomSheetRef.current?.snapToIndex(0);
+            });
+        }
+    }, [formShow]);
 
     return (
-        <ScreenContainer safeAreaBottom={false}>
-            {/* Logo */}
-            <View style={styles.logo}>
-                <Icon name="dining" size={100} color={Colors.white} />
-                <Text style={styles.logoText}>Meal Planner</Text>
-                <Text style={styles.bgText}>Bienvenue</Text>
-            </View>
+        <>
+            <ScreenContainer safeAreaBottom={false}>
+                {/* Logo */}
+                <View style={styles.logo}>
+                    <Icon name="dining" size={100} color={Colors.white} />
+                    <TextApp style={styles.logoText}>Meal Planner</TextApp>
+                    <TextApp style={styles.bgText}>Bienvenue</TextApp>
+                </View>
 
-            {/* Slide form */}
-            <BottomSheet ref={bottomSheetRef} onChange={handleSheetChanges}>
-                <BottomSheetView>
-                    <Text>Awesome 🎉</Text>
-                </BottomSheetView>
-            </BottomSheet>
-            <FormContainer />
-        </ScreenContainer>
+                <View style={{ ...GlobalStyles.ph, ...styles.btnsContainer }}>
+                    <ButtonCustom title="Se connecter" type="color" onPress={() => handlePress("login")} />
+                    <ButtonCustom title="Créer un compte" type="light" onPress={() => handlePress("register")} styleButton={styles.btnRegister} />
+                    <ButtonCustom title="Mot de passe oublié" onPress={() => handlePress("forgotPassword")} styleButton={styles.btnForgotPassword} />
+                </View>
+            </ScreenContainer>
+
+            {/* Form */}
+            <BottomSheetContainer ref={bottomSheetRef}>
+                <FormContainer formShow={formShow} onClickBottomSheet={(val) => handlePress(val)} />
+            </BottomSheetContainer>
+        </>
     );
 };
 
-export default AuthScreen;
-
 const styles = StyleSheet.create({
     logo: {
-        height: "30%",
+        flex: 1,
         alignItems: "center",
         justifyContent: "center",
     },
     logoText: {
         color: "#fff",
         fontSize: 20,
-        fontWeight: "600",
         textTransform: "uppercase",
+        fontFamily: Typography.bold,
     },
     bgText: {
         color: "#fff",
         fontSize: 18,
-        marginTop: 20
+        marginTop: 20,
+        fontFamily: Typography.regular,
+    },
+    btnsContainer: {
+        flex: 1,
+        justifyContent: "center",
+    },
+    btnRegister: {
+        alignItems: "center",
+        marginVertical: 10,
+    },
+    btnForgotPassword: {
+        alignItems: "center",
+        marginTop: 10,
     },
 });

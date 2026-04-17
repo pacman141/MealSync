@@ -5,20 +5,24 @@
  * @format
  */
 
-import { StatusBar, StyleSheet, useColorScheme, Text } from "react-native";
-import { SafeAreaProvider, useSafeAreaInsets } from "react-native-safe-area-context";
+import { StatusBar, StyleSheet } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./src/app/navigation/RootNavigator";
+import { MenuProvider } from "react-native-popup-menu";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 function App() {
-    const isDarkMode = useColorScheme() === "dark";
-
     return (
         <SafeAreaProvider>
-            <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} backgroundColor={isDarkMode ? "#000" : "#fff"} />
-            <NavigationContainer>
-                <RootNavigator />
-            </NavigationContainer>
+            <MenuProvider>
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                    <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+                    <NavigationContainer>
+                        <RootNavigator />
+                    </NavigationContainer>
+                </GestureHandlerRootView>
+            </MenuProvider>
         </SafeAreaProvider>
     );
 }

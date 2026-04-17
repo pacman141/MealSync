@@ -1,20 +1,23 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Input from "../../../shared/components/Input";
 import ButtonCustom from "../../../shared/components/ButtonCustom";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Colors, GlobalStyles } from "../../../assets";
 import { LoginFormProps } from "../types/auth.types";
+import { useAppNavigation } from "../../../app/navigation/types/rootNavigator.types";
+import TextApp from "../../../shared/components/TextApp";
 
-export const LoginForm = ({onClickRegister, onClickForgotPassword}: LoginFormProps) => {
+export const LoginForm = ({ onClickRegister, onClickForgotPassword }: LoginFormProps) => {
+    const navigation = useAppNavigation();
 
-    const handleLogin = () => { 
-        console.log("JE ME CONNECTE")
-     }
+    const handleLogin = () => {
+        navigation.replace("Main", { screen: "Dashboard" });
+    };
 
     return (
         <View style={styles.container}>
             <View>
-                <Text style={{ ...GlobalStyles.h1, ...styles.h1 }}>Se connecter</Text>
+                <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>Se connecter</TextApp>
 
                 {/* Email */}
                 <View style={styles.inputGroup}>
@@ -23,7 +26,7 @@ export const LoginForm = ({onClickRegister, onClickForgotPassword}: LoginFormPro
                 </View>
 
                 {/* Password */}
-                <View style={{...styles.inputGroup, marginBottom: 10}}>
+                <View style={{ ...styles.inputGroup, marginBottom: 10 }}>
                     <Icon name="password" size={20} color={Colors.text} />
                     <Input placeholder="Mot de passe" secureTextEntry={true} autoCapitalize="none" autoCorrect={false} textContentType="password" />
                 </View>
@@ -35,7 +38,7 @@ export const LoginForm = ({onClickRegister, onClickForgotPassword}: LoginFormPro
                 <ButtonCustom title="Se connecter" type="color" onPress={handleLogin} />
 
                 <View style={styles.btnRegisterContainer}>
-                    <ButtonCustom title="S'inscrire" onPress={onClickRegister} styleText={styles.btnRegisterText} />
+                    <ButtonCustom title="S'inscrire" onPress={onClickRegister} />
                 </View>
             </View>
         </View>
@@ -64,9 +67,6 @@ const styles = StyleSheet.create({
     btnRegisterContainer: {
         marginTop: 10,
         alignItems: "center",
-    },
-    btnRegisterText: {
-        fontWeight: "600",
     },
     h1: {
         textAlign: "center",

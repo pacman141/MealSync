@@ -1,28 +1,29 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { ButtonCustomProps, ButtonTextProps } from "../types/types";
 import { Colors } from "../../assets";
+import TextApp from "./TextApp";
 
 const ButtonCustom = ({ title, type, styleButton, styleText, titleColor = "dark", onPress }: ButtonCustomProps) => {
-    const ButtonText = ({ color }: ButtonTextProps) => <Text style={{ color: color === "dark" ? Colors.text : Colors.white, fontSize: type ? 18 : 16, ...styleText }}>{title}</Text>;
+    const ButtonText = ({ color }: ButtonTextProps) => <TextApp style={{ color: color === "dark" ? Colors.text : Colors.white, fontSize: type ? 18 : 16, ...styleText }}>{title}</TextApp>;
 
     if (type === "color") {
         return (
-            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton, backgroundColor: Colors.primaryDark }}>
+            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton, backgroundColor: Colors.mainColor }}>
                 <ButtonText color="light" />
             </TouchableOpacity>
         );
     } else if (type === "light") {
         return (
-            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton, backgroundColor: Colors.primaryLight }}>
+            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton, backgroundColor: Colors.secondaryColor }}>
                 <ButtonText color="dark" />
             </TouchableOpacity>
         );
     } else if (type === "linear") {
         return (
             <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton }}>
-                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} colors={[Colors.primaryDark, Colors.primaryLight]} style={styles.linearGradient}>
+                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} colors={[Colors.linearStart, Colors.linearEnd]} style={styles.linearGradient}>
                     <ButtonText color="light" />
                 </LinearGradient>
             </TouchableOpacity>

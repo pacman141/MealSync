@@ -8,27 +8,23 @@ import { StyleSheet, View } from "react-native";
 const ScreenContainer = ({ children, safeAreaTop = true, safeAreaBottom = true, bgColor = "linear" }: ScreenContainerProps) => {
     const insets = useSafeAreaInsets();
 
-    const ScreenLinear = () => (
-        <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} colors={[Colors.primaryDark, Colors.primaryLight]} style={styles.container}>
-            {children}
-        </LinearGradient>
-    );
+    const containerStyle = {
+        flex: 1,
+        paddingTop: safeAreaTop ? insets.top : 0,
+        paddingBottom: safeAreaBottom ? insets.bottom : 0,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+    };
 
-    const ScreenColor = () => <View style={{...styles.container, backgroundColor: bgColor}}>{children}</View>;
+    if (bgColor === "linear") {
+        return (
+            <LinearGradient colors={[Colors.linearStart, Colors.linearEnd]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={containerStyle}>
+                {children}
+            </LinearGradient>
+        );
+    }
 
-    return (
-        <View
-            style={{
-                flex: 1,
-                paddingTop: safeAreaTop ? insets.top : 0,
-                paddingBottom: safeAreaBottom ? insets.bottom : 0,
-                paddingLeft: insets.left,
-                paddingRight: insets.right,
-            }}
-        >
-            {bgColor === "linear" ? <ScreenLinear /> : <ScreenColor />}
-        </View>
-    );
+    return <View style={[containerStyle, { backgroundColor: bgColor }]}>{children}</View>;
 };
 
 export default ScreenContainer;
