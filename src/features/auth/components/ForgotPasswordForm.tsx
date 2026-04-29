@@ -5,23 +5,37 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { Colors, GlobalStyles } from "../../../assets";
 import { ForgotPasswordFormProps } from "../types/auth.types";
 import TextApp from "../../../shared/components/TextApp";
-import { Typography } from "../../../assets/fonts";
 
-export const ForgotPasswordForm = ({ onClickLogin }: ForgotPasswordFormProps) => {
+export const ForgotPasswordForm = ({
+    onClickLogin,
+}: ForgotPasswordFormProps) => {
     return (
         <View style={styles.container}>
             <View>
-                <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>Mot de passe oublié</TextApp>
+                <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>
+                    Mot de passe oublié
+                </TextApp>
 
                 {/* Email */}
                 <View style={styles.inputGroup}>
                     <Icon name="mail" size={20} color={Colors.text} />
-                    <Input placeholder="Adresse E-mail" autoCorrect={false} autoCapitalize="none" textContentType="emailAddress" keyboardType="email-address" />
+                    <Input
+                        placeholder="Adresse E-mail"
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        textContentType="emailAddress"
+                        keyboardType="email-address"
+                        style={styles.input}
+                    />
                 </View>
             </View>
 
             <View style={styles.bottomContainer}>
-                <ButtonCustom title="Envoyer" type="color" onPress={() => console.log("Envoyer")} />
+                <ButtonCustom
+                    title="Envoyer"
+                    type="color"
+                    onPress={() => console.log("Envoyer")}
+                />
 
                 <View style={styles.btnRegisterContainer}>
                     <ButtonCustom title="Se connecter" onPress={onClickLogin} />
@@ -57,5 +71,8 @@ const styles = StyleSheet.create({
     h1: {
         textAlign: "center",
         marginBottom: 20,
+    },
+    input: {
+        flex: 1,
     },
 });

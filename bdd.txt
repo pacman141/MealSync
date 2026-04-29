@@ -12,10 +12,25 @@ created_at
 updated_at
 
 -----------------------------
-user_meal
+shopping_list_user
+-----------------------------
+shopping_list_id
+user_id
+
+-----------------------------
+shopping_list_ingredient
+-----------------------------
+shopping_list_id
+ingredient_id
+
+
+-----------------------------
+shopping_list_ingredient
 -----------------------------
 user_id
 meal_idfi
+
+
 
 -----------------------------
 planning

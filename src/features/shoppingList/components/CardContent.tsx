@@ -3,13 +3,24 @@ import TextApp from "../../../shared/components/TextApp";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Colors } from "../../../assets";
 import { Typography } from "../../../assets/fonts";
-import { CardContentProps } from "../types/dashboard.types";
+import { CardContentProps } from "../types/shoppingList.types";
 
-export const CardContent = ({productsCurrent, productsTotal, budgetEstimated, shop, progress}: CardContentProps) => {
+export const CardContent = ({
+    productsCurrent,
+    productsTotal,
+    budgetEstimated,
+    shop,
+    progress,
+}: CardContentProps) => {
     return (
         <View>
             <View style={styles.item}>
-                <Icon name="check-circle" size={20} color={Colors.mainColor} style={styles.iconItem} />
+                <Icon
+                    name="check-circle"
+                    size={20}
+                    color={Colors.mainColor}
+                    style={styles.iconItem}
+                />
                 <TextApp style={styles.productsAdded}>
                     <TextApp style={{ fontFamily: Typography.bold }}>
                         {productsCurrent}/{productsTotal}
@@ -19,22 +30,42 @@ export const CardContent = ({productsCurrent, productsTotal, budgetEstimated, sh
             </View>
 
             <View style={styles.item}>
-                <Icon name="euro" size={20} color={Colors.warning} style={styles.iconItem} />
+                <Icon
+                    name="euro"
+                    size={20}
+                    color={Colors.warning}
+                    style={styles.iconItem}
+                />
                 <TextApp style={styles.estimatedBudget}>
-                    Budget estimé : <TextApp style={{ fontFamily: Typography.bold }}>{budgetEstimated} €</TextApp>
+                    Budget estimé :{" "}
+                    <TextApp style={{ fontFamily: Typography.bold }}>
+                        {budgetEstimated} €
+                    </TextApp>
                 </TextApp>
             </View>
 
             <View style={styles.item}>
-                <Icon name="shopping-cart" size={20} color={Colors.secondary} style={styles.iconItem} />
+                <Icon
+                    name="shopping-cart"
+                    size={20}
+                    color={Colors.secondary}
+                    style={styles.iconItem}
+                />
                 <TextApp style={styles.shop}>
-                    Magasin : <TextApp style={{ fontFamily: Typography.bold }}>{shop}</TextApp>
+                    Magasin :{" "}
+                    <TextApp style={{ fontFamily: Typography.bold }}>
+                        {shop}
+                    </TextApp>
                 </TextApp>
             </View>
 
             <View style={styles.progressBar}>
-                <View style={{ ...styles.fillProgressBar, width: `${progress}%` }}>
-                    <TextApp style={styles.textProgressBar}>{progress}%</TextApp>
+                <View
+                    style={{ ...styles.fillProgressBar, width: `${progress}%` }}
+                >
+                    <TextApp style={styles.textProgressBar}>
+                        {progress}%
+                    </TextApp>
                 </View>
             </View>
         </View>

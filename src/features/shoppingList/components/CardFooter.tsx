@@ -1,14 +1,24 @@
 import { StyleSheet, Image, View } from "react-native";
 import React from "react";
-import { CardFooterProps } from "../types/dashboard.types";
+import { CardFooterProps } from "../types/shoppingList.types";
 
 export const CardFooter = ({ sharedProfiles }: CardFooterProps) => {
     return (
         <View style={styles.footer}>
             {sharedProfiles &&
                 sharedProfiles.map((sharedProfile, key) => (
-                    <View style={{ ...styles.profilShare, marginLeft: key === 0 ? 0 : -12 }} key={key}>
-                        <Image source={{ uri: sharedProfile.avatar }} resizeMode="cover" style={styles.img} />
+                    <View
+                        style={{
+                            ...styles.profilShare,
+                            marginLeft: key === 0 ? 0 : -12,
+                        }}
+                        key={key}
+                    >
+                        <Image
+                            source={{ uri: sharedProfile.avatar }}
+                            resizeMode="cover"
+                            style={styles.img}
+                        />
                     </View>
                 ))}
         </View>

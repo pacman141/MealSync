@@ -41,14 +41,23 @@ export const FiltersForm = () => {
                 {sections.map((section, index) => (
                     <View key={index}>
                         <View style={styles.titleContainer}>
-                            <Icon name={section.icon} size={16} color={Colors.text} style={styles.titleIcon} />
-                            <TextApp style={styles.title}>{section.title}</TextApp>
+                            <Icon
+                                name={section.icon}
+                                size={16}
+                                color={Colors.text}
+                                style={styles.titleIcon}
+                            />
+                            <TextApp style={styles.title}>
+                                {section.title}
+                            </TextApp>
                         </View>
 
                         <View style={styles.btns}>
                             {section.items.map((item, i) => (
                                 <TouchableOpacity key={i} style={styles.btn}>
-                                    <TextApp style={styles.textBtn}>{item}</TextApp>
+                                    <TextApp style={styles.textBtn}>
+                                        {item}
+                                    </TextApp>
                                 </TouchableOpacity>
                             ))}
                         </View>
@@ -76,7 +85,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "baseline",
-        paddingTop: 10
+        paddingTop: 10,
     },
     titleIcon: {
         marginRight: 5,

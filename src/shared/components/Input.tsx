@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     textInput: {
         height: 50,
         borderRadius: 15,
-        paddingHorizontal: 8,
-        color: Colors.text,
+        paddingHorizontal: 10,
+        color: Colors.text
     },
 });

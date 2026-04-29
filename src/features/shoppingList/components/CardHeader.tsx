@@ -1,10 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
-import { Menu, MenuOptions, MenuOption, MenuTrigger } from "react-native-popup-menu";
+import {
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+} from "react-native-popup-menu";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import TextApp from "../../../shared/components/TextApp";
 import { Colors } from "../../../assets";
 import { Typography } from "../../../assets/fonts";
-import { CardHeaderProps } from "../types/dashboard.types";
+import { CardHeaderProps } from "../types/shoppingList.types";
 
 export const CardHeader = ({ title, date }: CardHeaderProps) => {
     return (

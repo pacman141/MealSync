@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { HeaderProps } from "../types/dashboard.types";
+import { HeaderProps } from "../types/shoppingList.types";
 import TextApp from "../../../shared/components/TextApp";
 import { Colors, GlobalStyles } from "../../../assets";
 import { Typography } from "../../../assets/fonts";
@@ -10,10 +10,16 @@ export const Header = ({ totalBudget, totalList }: HeaderProps) => {
         <View style={GlobalStyles.ph}>
             <View style={styles.container}>
                 <TextApp>
-                    Budget total: <TextApp style={{ fontFamily: Typography.bold }}>{totalBudget} €</TextApp>
+                    Budget total:{" "}
+                    <TextApp style={{ fontFamily: Typography.bold }}>
+                        {totalBudget} €
+                    </TextApp>
                 </TextApp>
                 <TextApp>
-                    Nombre de liste: <TextApp style={{ fontFamily: Typography.bold }}>{totalList}</TextApp>
+                    Nombre de liste:{" "}
+                    <TextApp style={{ fontFamily: Typography.bold }}>
+                        {totalList}
+                    </TextApp>
                 </TextApp>
             </View>
         </View>

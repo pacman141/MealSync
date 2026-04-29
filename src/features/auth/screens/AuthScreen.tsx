@@ -1,5 +1,5 @@
 // AuthScreen.tsx
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import ScreenContainer from "../../../shared/components/ScreenContainer";
 import { FormContainer } from "../components";
@@ -11,10 +11,16 @@ import ButtonCustom from "../../../shared/components/ButtonCustom";
 import { NamesForm } from "../types/auth.types";
 import { BottomSheetContainer } from "../../../shared/components/BottomSheetContainer";
 import { BottomSheetRef } from "../../../shared/types/types";
+import { loadToken, logout, setToken } from "../services/auth.service";
+import { useAppNavigation } from "../../../app/navigation/types/rootNavigator.types";
+import * as Keychain from "react-native-keychain";
 
 export const AuthScreen = () => {
+    const navigation = useAppNavigation();
+
     const bottomSheetRef = useRef<BottomSheetRef>(null);
     const [formShow, setFormShow] = useState<NamesForm>(null);
+    const [ready, setReady] = useState<boolean>(false);
 
     const handlePress = (formName: NamesForm) => setFormShow(formName);
 
@@ -26,6 +32,17 @@ export const AuthScreen = () => {
         }
     }, [formShow]);
 
+    useEffect(() => {
+        const initAuth = async () => {
+            const token = await loadToken();
+            if (!token) await logout(false);
+            else navigation.replace("Main", { screen: "ShoppingList" });
+            setReady(true);
+        };
+
+        initAuth();
+    }, []);
+
     return (
         <>
             <ScreenContainer safeAreaBottom={false}>
@@ -36,16 +53,40 @@ export const AuthScreen = () => {
                     <TextApp style={styles.bgText}>Bienvenue</TextApp>
                 </View>
 
-                <View style={{ ...GlobalStyles.ph, ...styles.btnsContainer }}>
-                    <ButtonCustom title="Se connecter" type="color" onPress={() => handlePress("login")} />
-                    <ButtonCustom title="Créer un compte" type="light" onPress={() => handlePress("register")} styleButton={styles.btnRegister} />
-                    <ButtonCustom title="Mot de passe oublié" onPress={() => handlePress("forgotPassword")} styleButton={styles.btnForgotPassword} />
-                </View>
+                {!ready ? (
+                    <View style={styles.loaderContainer}>
+                        <ActivityIndicator size={80} color={Colors.white} />
+                    </View>
+                ) : (
+                    <View
+                        style={{ ...GlobalStyles.ph, ...styles.btnsContainer }}
+                    >
+                        <ButtonCustom
+                            title="Se connecter"
+                            type="color"
+                            onPress={() => handlePress("login")}
+                        />
+                        <ButtonCustom
+                            title="Créer un compte"
+                            type="light"
+                            onPress={() => handlePress("register")}
+                            styleButton={styles.btnRegister}
+                        />
+                        <ButtonCustom
+                            title="Mot de passe oublié"
+                            onPress={() => handlePress("forgotPassword")}
+                            styleButton={styles.btnForgotPassword}
+                        />
+                    </View>
+                )}
             </ScreenContainer>
 
             {/* Form */}
             <BottomSheetContainer ref={bottomSheetRef}>
-                <FormContainer formShow={formShow} onClickBottomSheet={(val) => handlePress(val)} />
+                <FormContainer
+                    formShow={formShow}
+                    onClickBottomSheet={(val) => handlePress(val)}
+                />
             </BottomSheetContainer>
         </>
     );
@@ -80,5 +121,10 @@ const styles = StyleSheet.create({
     btnForgotPassword: {
         alignItems: "center",
         marginTop: 10,
+    },
+    loaderContainer: {
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "center",
     },
 });

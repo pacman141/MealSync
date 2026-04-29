@@ -6,39 +6,94 @@ import { Colors, GlobalStyles } from "../../../assets";
 import { LoginFormProps } from "../types/auth.types";
 import { useAppNavigation } from "../../../app/navigation/types/rootNavigator.types";
 import TextApp from "../../../shared/components/TextApp";
+import { useState } from "react";
+import { loginApi } from "../api/auth";
+import { setToken, setRefreshToken } from "../services/auth.service";
 
 export const LoginForm = ({ onClickRegister, onClickForgotPassword }: LoginFormProps) => {
     const navigation = useAppNavigation();
 
-    const handleLogin = () => {
-        navigation.replace("Main", { screen: "Dashboard" });
+    const [email, setEmail] = useState<string | null>();
+    const [password, setPassword] = useState<string | null>();
+    const [error, setError] = useState<string | null>();
+
+    const handleLogin = async () => {
+        if (!email || !password) return;
+        
+        try {
+            const data = await loginApi(email, password);
+
+            setToken(data.token)
+            setRefreshToken(data.refresh_token)
+
+            navigation.replace("Main", { screen: "ShoppingList" });
+        } catch (error: any) {
+            if(error?.response?.status === 401) {
+                setError("Identifiants incorrects");
+            } else {
+                setError("Une erreur est survenue");
+            }
+        }
     };
 
     return (
         <View style={styles.container}>
             <View>
-                <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>Se connecter</TextApp>
+                <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>
+                    Se connecter
+                </TextApp>
 
                 {/* Email */}
                 <View style={styles.inputGroup}>
                     <Icon name="mail" size={20} color={Colors.text} />
-                    <Input placeholder="Adresse E-mail" autoCorrect={false} autoCapitalize="none" textContentType="emailAddress" keyboardType="email-address" />
+                    <Input
+                        placeholder="Adresse E-mail"
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        textContentType="emailAddress"
+                        keyboardType="email-address"
+                        onChangeText={(text) => setEmail(text)}
+                        style={styles.input}
+                    />
                 </View>
 
                 {/* Password */}
                 <View style={{ ...styles.inputGroup, marginBottom: 10 }}>
                     <Icon name="password" size={20} color={Colors.text} />
-                    <Input placeholder="Mot de passe" secureTextEntry={true} autoCapitalize="none" autoCorrect={false} textContentType="password" />
+                    <Input
+                        placeholder="Mot de passe"
+                        secureTextEntry={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        textContentType="password"
+                        onChangeText={(text) => setPassword(text)}
+                        style={styles.input}
+                    />
                 </View>
 
-                <ButtonCustom title="Mot de passe oublié" onPress={onClickForgotPassword} styleButton={styles.btnForgotPassword} />
+                <ButtonCustom
+                    title="Mot de passe oublié"
+                    onPress={onClickForgotPassword}
+                    styleButton={styles.btnForgotPassword}
+                />
             </View>
 
             <View style={styles.bottomContainer}>
-                <ButtonCustom title="Se connecter" type="color" onPress={handleLogin} />
+                {error && <TextApp style={styles.error}>
+                    { error }
+                </TextApp>}
+
+                <ButtonCustom
+                    title="Se connecter"
+                    type="color"
+                    onPress={handleLogin}
+                />
 
                 <View style={styles.btnRegisterContainer}>
-                    <ButtonCustom title="S'inscrire" onPress={onClickRegister} />
+                    <ButtonCustom
+                        title="S'inscrire"
+                        onPress={onClickRegister}
+                    />
                 </View>
             </View>
         </View>
@@ -71,5 +126,12 @@ const styles = StyleSheet.create({
     h1: {
         textAlign: "center",
         marginBottom: 20,
+    },
+    error: {
+        textAlign: 'center',
+        color: Colors.danger
+    },
+    input: {
+        flex: 1
     },
 });

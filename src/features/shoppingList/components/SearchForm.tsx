@@ -3,7 +3,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import React, { useState } from "react";
 import Input from "../../../shared/components/Input";
 import { Colors, GlobalStyles } from "../../../assets";
-import { SearchFormProps } from "../types/dashboard.types";
+import { SearchFormProps } from "../types/shoppingList.types";
 
 export const SearchForm = ({ onChange }: SearchFormProps) => {
     const [isSearch, setIsSearch] = useState<boolean>(false);
@@ -16,9 +16,24 @@ export const SearchForm = ({ onChange }: SearchFormProps) => {
     return (
         <View style={GlobalStyles.ph}>
             <View style={styles.container}>
-                <Icon name="search" size={24} color={Colors.text} style={styles.iconSearch} />
-                <Input style={styles.input} onChangeText={(text) => handleChange(text)} />
-                {isSearch && <Icon name="close" size={24} color={Colors.text} style={styles.iconClose} />}
+                <Icon
+                    name="search"
+                    size={24}
+                    color={Colors.text}
+                    style={styles.iconSearch}
+                />
+                <Input
+                    style={styles.input}
+                    onChangeText={(text) => handleChange(text)}
+                />
+                {isSearch && (
+                    <Icon
+                        name="close"
+                        size={24}
+                        color={Colors.text}
+                        style={styles.iconClose}
+                    />
+                )}
             </View>
         </View>
     );

@@ -1,5 +1,3 @@
-import { ScrollViewPropsAndroid } from "react-native";
-
 export type NamesForm = "login" | "register" | "forgotPassword" | null;
 
 export interface LoginFormProps {
@@ -18,7 +16,7 @@ export interface ForgotPasswordFormProps {
 
 export interface FormContainerProps {
     formShow: NamesForm;
-    onClickBottomSheet(formShow: Exclude<NamesForm, null>): void;
+    onClickBottomSheet: (formShow: Exclude<NamesForm, null>) => void;
 }
 
 export interface FormBottomSheetProps {

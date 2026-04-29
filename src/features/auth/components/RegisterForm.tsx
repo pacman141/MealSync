@@ -6,41 +6,82 @@ import { Colors, GlobalStyles } from "../../../assets";
 import { RegisterFormProps } from "../types/auth.types";
 import TextApp from "../../../shared/components/TextApp";
 
-export const RegisterForm = ({onClickLogin, onClickForgotPassword}: RegisterFormProps) => {
+export const RegisterForm = ({
+    onClickLogin,
+    onClickForgotPassword,
+}: RegisterFormProps) => {
     return (
         <View style={styles.container}>
             <View>
-                <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>Créer un compte</TextApp>
+                <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>
+                    Créer un compte
+                </TextApp>
 
                 {/* Username */}
                 <View style={styles.inputGroup}>
                     <Icon name="account-circle" size={20} color={Colors.text} />
-                    <Input placeholder="Pseudo" autoCorrect={false} autoCapitalize="none" textContentType="emailAddress" keyboardType="email-address" />
+                    <Input
+                        placeholder="Pseudo"
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        textContentType="emailAddress"
+                        keyboardType="email-address"
+                        style={styles.input}
+                    />
                 </View>
 
                 {/* Email */}
                 <View style={styles.inputGroup}>
                     <Icon name="mail" size={20} color={Colors.text} />
-                    <Input placeholder="Adresse E-mail" autoCorrect={false} autoCapitalize="none" textContentType="emailAddress" keyboardType="email-address" />
+                    <Input
+                        placeholder="Adresse E-mail"
+                        autoCorrect={false}
+                        autoCapitalize="none"
+                        textContentType="emailAddress"
+                        keyboardType="email-address"
+                        style={styles.input}
+                    />
                 </View>
 
                 {/* Password */}
                 <View style={styles.inputGroup}>
                     <Icon name="password" size={20} color={Colors.text} />
-                    <Input placeholder="Votre mot de passe" secureTextEntry={true} autoCapitalize="none" autoCorrect={false} textContentType="password" />
+                    <Input
+                        placeholder="Votre mot de passe"
+                        secureTextEntry={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        textContentType="password"
+                        style={styles.input}
+                    />
                 </View>
 
                 {/* Confirm Password */}
-                <View style={{...styles.inputGroup, marginBottom: 10}}>
+                <View style={{ ...styles.inputGroup, marginBottom: 10 }}>
                     <Icon name="password" size={20} color={Colors.text} />
-                    <Input placeholder="Confirmez votre mot de passe" secureTextEntry={true} autoCapitalize="none" autoCorrect={false} textContentType="password" />
+                    <Input
+                        placeholder="Confirmez votre mot de passe"
+                        secureTextEntry={true}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        textContentType="password"
+                        style={styles.input}
+                    />
                 </View>
 
-                <ButtonCustom title="Mot de passe oublié" onPress={onClickForgotPassword} styleButton={styles.btnForgotPassword} />
+                <ButtonCustom
+                    title="Mot de passe oublié"
+                    onPress={onClickForgotPassword}
+                    styleButton={styles.btnForgotPassword}
+                />
             </View>
 
             <View style={styles.bottomContainer}>
-                <ButtonCustom title="Créer un compte" type="color" onPress={() => console.log("Créer un compte")} />
+                <ButtonCustom
+                    title="Créer un compte"
+                    type="color"
+                    onPress={() => console.log("Créer un compte")}
+                />
                 <View style={styles.btnRegisterContainer}>
                     <ButtonCustom title="Se connecter" onPress={onClickLogin} />
                 </View>
@@ -55,7 +96,7 @@ const styles = StyleSheet.create({
     },
     bottomContainer: {
         justifyContent: "center",
-        marginTop: 50
+        marginTop: 50,
     },
     inputGroup: {
         marginBottom: 20,
@@ -75,5 +116,8 @@ const styles = StyleSheet.create({
     h1: {
         textAlign: "center",
         marginBottom: 30,
+    },
+    input: {
+        flex: 1
     },
 });

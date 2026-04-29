@@ -1,13 +1,13 @@
 import { StyleSheet, View } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { Colors } from "../../../assets";
-import { SortFormProps } from "../types/dashboard.types";
+import { SortFormProps } from "../types/shoppingList.types";
 
 export const SortForm = ({ onValueChange }: SortFormProps) => {
     return (
         <View style={styles.container}>
             <RNPickerSelect
-                //useNativeAndroidPickerStyle={false} 
+                //useNativeAndroidPickerStyle={false}
                 placeholder={{ label: "Trier par" }}
                 style={{ inputAndroid: styles.pickerSelect }}
                 onValueChange={(value) => onValueChange(value)}
@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
     },
     pickerSelect: {
         width: "100%",
-        color: Colors.white
+        color: Colors.white,
     },
 });

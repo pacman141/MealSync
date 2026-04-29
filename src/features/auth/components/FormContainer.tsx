@@ -11,14 +11,34 @@ export const FormContainer = ({ formShow, onClickBottomSheet }: FormContainerPro
 
     return (
         <View style={styles.container}>
-            <View style={{ ...GlobalStyles.ph, ...styles.formContainer, paddingBottom: insets.bottom + 50 }}>
+            <View
+                style={{
+                    ...GlobalStyles.ph,
+                    ...styles.formContainer,
+                    paddingBottom: insets.bottom + 50,
+                }}
+            >
                 {formShow === "login" && (
-                    <LoginForm onClickRegister={() => onClickBottomSheet("register")} onClickForgotPassword={() => onClickBottomSheet("forgotPassword")} />
+                    <LoginForm
+                        onClickRegister={() => onClickBottomSheet("register")}
+                        onClickForgotPassword={() =>
+                            onClickBottomSheet("forgotPassword")
+                        }
+                    />
                 )}
                 {formShow === "register" && (
-                    <RegisterForm onClickLogin={() => onClickBottomSheet("login")} onClickForgotPassword={() => onClickBottomSheet("forgotPassword")} />
+                    <RegisterForm
+                        onClickLogin={() => onClickBottomSheet("login")}
+                        onClickForgotPassword={() =>
+                            onClickBottomSheet("forgotPassword")
+                        }
+                    />
                 )}
-                {formShow === "forgotPassword" && <ForgotPasswordForm onClickLogin={() => onClickBottomSheet("login")} />}
+                {formShow === "forgotPassword" && (
+                    <ForgotPasswordForm
+                        onClickLogin={() => onClickBottomSheet("login")}
+                    />
+                )}
             </View>
         </View>
     );
@@ -33,6 +53,5 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: Colors.background,
         paddingTop: 20,
-        width: "100%",
     },
 });

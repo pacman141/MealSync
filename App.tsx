@@ -7,23 +7,38 @@
 
 import { StatusBar, StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, createNavigationContainerRef  } from "@react-navigation/native";
 import RootNavigator from "./src/app/navigation/RootNavigator";
 import { MenuProvider } from "react-native-popup-menu";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { store } from "./src/app/store/store";
+import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+export const navigationRef = createNavigationContainerRef();
+
+const queryClient = new QueryClient();
 
 function App() {
     return (
-        <SafeAreaProvider>
-            <MenuProvider>
-                <GestureHandlerRootView style={{ flex: 1 }}>
-                    <StatusBar translucent backgroundColor="transparent" barStyle="light-content" />
-                    <NavigationContainer>
-                        <RootNavigator />
-                    </NavigationContainer>
-                </GestureHandlerRootView>
-            </MenuProvider>
-        </SafeAreaProvider>
+        <Provider store={store}>
+            <QueryClientProvider client={queryClient}>
+                <SafeAreaProvider>
+                    <MenuProvider>
+                        <GestureHandlerRootView style={{ flex: 1 }}>
+                            <StatusBar
+                                translucent
+                                backgroundColor="transparent"
+                                barStyle="light-content"
+                            />
+                            <NavigationContainer ref={navigationRef}>
+                                <RootNavigator />
+                            </NavigationContainer>
+                        </GestureHandlerRootView>
+                    </MenuProvider>
+                </SafeAreaProvider>
+            </QueryClientProvider>
+        </Provider>
     );
 }
 

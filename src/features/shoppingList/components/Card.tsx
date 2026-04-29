@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 
 import { Colors, GlobalStyles } from "../../../assets";
-import { CardProps } from "../types/dashboard.types";
+import { CardProps } from "../types/shoppingList.types";
 import { CardHeader } from "./CardHeader";
 import { CardContent } from "./CardContent";
 import { CardFooter } from "./CardFooter";
@@ -18,7 +18,9 @@ export const Card = ({ item }: CardProps) => {
                     shop={item.shop}
                     progress={item.progress}
                 />
-                {item.sharedProfiles && <CardFooter sharedProfiles={item.sharedProfiles} />}
+                {item.sharedProfiles && (
+                    <CardFooter sharedProfiles={item.sharedProfiles} />
+                )}
             </View>
         </View>
     );
