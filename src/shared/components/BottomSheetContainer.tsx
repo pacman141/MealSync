@@ -21,6 +21,7 @@ export const BottomSheetContainer = forwardRef(({ children, bgColor }: BottomShe
             backgroundStyle={{ backgroundColor: bgColor ? bgColor : Colors.background }}
             enablePanDownToClose
             enableDynamicSizing={true}
+            keyboardBehavior="interactive"
         >
             <BottomSheetView style={styles.contentContainer}>{children}</BottomSheetView>
         </BottomSheet>
@@ -29,6 +30,6 @@ export const BottomSheetContainer = forwardRef(({ children, bgColor }: BottomShe
 
 const styles = StyleSheet.create({
     contentContainer: {
-        flex: 1,
+        //flex: 1,
     },
 });

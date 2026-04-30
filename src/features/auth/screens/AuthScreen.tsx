@@ -1,6 +1,6 @@
 // AuthScreen.tsx
 import { StyleSheet, View, ActivityIndicator } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ScreenContainer from "../../../shared/components/ScreenContainer";
 import { FormContainer } from "../components";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -11,9 +11,8 @@ import ButtonCustom from "../../../shared/components/ButtonCustom";
 import { NamesForm } from "../types/auth.types";
 import { BottomSheetContainer } from "../../../shared/components/BottomSheetContainer";
 import { BottomSheetRef } from "../../../shared/types/types";
-import { loadToken, logout, setToken } from "../services/auth.service";
+import { loadToken, logout } from "../services/auth.service";
 import { useAppNavigation } from "../../../app/navigation/types/rootNavigator.types";
-import * as Keychain from "react-native-keychain";
 
 export const AuthScreen = () => {
     const navigation = useAppNavigation();
@@ -22,25 +21,41 @@ export const AuthScreen = () => {
     const [formShow, setFormShow] = useState<NamesForm>(null);
     const [ready, setReady] = useState<boolean>(false);
 
-    const handlePress = (formName: NamesForm) => setFormShow(formName);
+    const handlePress = (formName: NamesForm) => {
+        setFormShow(formName);
+    }
 
     useEffect(() => {
-        if (formShow) {
+        if (!formShow) return;
+
+        const id = requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 bottomSheetRef.current?.snapToIndex(0);
             });
-        }
+        });
+
+        return () => cancelAnimationFrame(id);
     }, [formShow]);
 
     useEffect(() => {
         const initAuth = async () => {
-            const token = await loadToken();
-            if (!token) await logout(false);
-            else navigation.replace("Main", { screen: "ShoppingList" });
-            setReady(true);
+            try {
+                const token = await loadToken();
+                if (!token) await logout(false);
+                else navigation.replace("Main", { screen: "ShoppingList" });
+            } catch (error) {
+                console.log("🚀 - AUTHSCREEN ~ initAuth:", error)
+                await logout(false);
+            } finally {
+                setReady(true);
+            }
         };
 
         initAuth();
+    }, []);
+
+    const handleSheetChanges = useCallback((index: number) => {
+        if (index === -1) setFormShow(null)
     }, []);
 
     return (
@@ -82,7 +97,7 @@ export const AuthScreen = () => {
             </ScreenContainer>
 
             {/* Form */}
-            <BottomSheetContainer ref={bottomSheetRef}>
+            <BottomSheetContainer ref={bottomSheetRef} onChange={handleSheetChanges}>
                 <FormContainer
                     formShow={formShow}
                     onClickBottomSheet={(val) => handlePress(val)}

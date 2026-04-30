@@ -7,6 +7,7 @@ import { CardContent } from "./CardContent";
 import { CardFooter } from "./CardFooter";
 
 export const Card = ({ item }: CardProps) => {
+
     return (
         <View style={GlobalStyles.ph}>
             <View style={styles.card}>

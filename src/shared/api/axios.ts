@@ -15,7 +15,7 @@ api.interceptors.request.use(async (config) => {
 
     if (credentials && typeof credentials !== "boolean") {
         const token = credentials.password;
-        console.log("🚀 ~ token:", token)
+        console.log("🚀 ~ token:", token);
 
         config.headers.set("Authorization", `Bearer ${token}`);
     }
@@ -39,7 +39,9 @@ api.interceptors.response.use(
             originalRequest._retry = true;
 
             try {
-                const refreshToken = await Keychain.getInternetCredentials("refresh_token");
+                const refreshToken = await Keychain.getInternetCredentials(
+                    "refresh_token",
+                );
 
                 if (!refreshToken) {
                     return Promise.reject(error);

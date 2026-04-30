@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+import { Children, useEffect, useRef, useState } from "react";
 import ScreenContainer from "../../../shared/components/ScreenContainer";
 import { Colors, GlobalStyles } from "../../../assets";
 import { ListItem } from "../types/shoppingList.types";
@@ -11,6 +11,11 @@ import { FiltersForm } from "../components/FiltersForm";
 import { BottomSheetRef } from "../../../shared/types/types";
 import { SortForm } from "../components/SortForm";
 import { SearchForm } from "../components/SearchForm";
+import { useShoppingLists } from "../hooks/useShoppingLists";
+import { useMe } from "../../user/hooks/useUser";
+import { Typography } from "../../../assets/fonts";
+import TextApp from "../../../shared/components/TextApp";
+import ButtonCustom from "../../../shared/components/ButtonCustom";
 
 export const ShoppingListScreen = () => {
 
@@ -262,6 +267,9 @@ export const ShoppingListScreen = () => {
         },
     ];
 
+    const { data: user, isLoading: isLoadingUser, error: errorUser } = useMe()
+    const { data: shoppingLists, isLoading: isLoadingListsLoading, error: errorListsLoading } = useShoppingLists(user?.id, { enabled: !!user?.id })
+
     const bottomSheetRef = useRef<BottomSheetRef>(null);
 
     const [totalBudget, setTotalBudget] = useState<number>(0);
@@ -276,12 +284,40 @@ export const ShoppingListScreen = () => {
         setTotalList(list.length);
     }, []);
 
-    const handlePressFilters = () => {
-        console.log("handlePressFilters");
+    const handlePressFilters = () => bottomSheetRef.current?.snapToIndex(0);
 
-        bottomSheetRef.current?.snapToIndex(0);
-    };
-    
+    if (!shoppingLists) {
+        return (
+            <View style={styles.errorContainer}>
+                <TextApp style={styles.errorText}>Erreur de chargement</TextApp>
+            </View>
+        )
+    }
+
+    if (isLoadingUser || isLoadingListsLoading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size={100} color={Colors.mainColor} />
+            </View>
+        );
+    }
+
+    if (!user || errorUser || errorListsLoading) {
+        return (
+            <View style={styles.errorContainer}>
+                <TextApp style={styles.errorText}>Erreur de chargement</TextApp>
+            </View>
+        );
+    }
+
+    if (!shoppingLists) {
+        return (
+            <View style={{ ...GlobalStyles.ph, ...styles.infoContainer }}>
+                <ButtonCustom title="Commencer" onPress={() => { }} type="linear" styleButton={styles.btnStartList} />
+            </View>
+        );
+    }
+
     return (
         <>
             <ScreenContainer safeAreaTop={false} bgColor={Colors.background}>
@@ -296,7 +332,7 @@ export const ShoppingListScreen = () => {
                         />
                     </View>
                     <SearchForm onChange={(text) => console.log(text)} />
-                    <List list={list} />
+                    <List list={shoppingLists} />
                 </View>
             </ScreenContainer>
 
@@ -312,5 +348,28 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: 5,
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    infoContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    btnStartList: {
+        width: 200
+    },
+    errorText: {
+        color: Colors.danger,
+        fontSize: 16,
+        fontFamily: Typography.semiBold
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 });

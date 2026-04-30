@@ -10,47 +10,40 @@ export const FormContainer = ({ formShow, onClickBottomSheet }: FormContainerPro
     const insets = useSafeAreaInsets();
 
     return (
-        <View style={styles.container}>
-            <View
-                style={{
-                    ...GlobalStyles.ph,
-                    ...styles.formContainer,
-                    paddingBottom: insets.bottom + 50,
-                }}
-            >
-                {formShow === "login" && (
-                    <LoginForm
-                        onClickRegister={() => onClickBottomSheet("register")}
-                        onClickForgotPassword={() =>
-                            onClickBottomSheet("forgotPassword")
-                        }
-                    />
-                )}
-                {formShow === "register" && (
-                    <RegisterForm
-                        onClickLogin={() => onClickBottomSheet("login")}
-                        onClickForgotPassword={() =>
-                            onClickBottomSheet("forgotPassword")
-                        }
-                    />
-                )}
-                {formShow === "forgotPassword" && (
-                    <ForgotPasswordForm
-                        onClickLogin={() => onClickBottomSheet("login")}
-                    />
-                )}
-            </View>
+        <View
+            style={{
+                ...GlobalStyles.ph,
+                ...styles.formContainer,
+                paddingBottom: insets.bottom + 50,
+            }}
+        >
+            {formShow === "login" && (
+                <LoginForm
+                    onClickRegister={() => onClickBottomSheet("register")}
+                    onClickForgotPassword={() =>
+                        onClickBottomSheet("forgotPassword")
+                    }
+                />
+            )}
+            {formShow === "register" && (
+                <RegisterForm
+                    onClickLogin={() => onClickBottomSheet("login")}
+                    onClickForgotPassword={() =>
+                        onClickBottomSheet("forgotPassword")
+                    }
+                />
+            )}
+            {formShow === "forgotPassword" && (
+                <ForgotPasswordForm
+                    onClickLogin={() => onClickBottomSheet("login")}
+                />
+            )}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "flex-end",
-    },
     formContainer: {
-        flex: 1,
         backgroundColor: Colors.background,
         paddingTop: 20,
     },

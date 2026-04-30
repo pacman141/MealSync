@@ -9,6 +9,11 @@ export interface ScreenContainerProps {
     bgColor?: BackgroundVariant;
 }
 
+export interface HeaderContainerProps {
+    children: React.ReactNode;
+    bgColor?: string
+}
+
 export interface InputProps extends TextInputProps {
     style?: StyleProp<TextStyle>;
 }
@@ -24,12 +29,13 @@ export interface ButtonCustomProps {
     styleButton?: object;
     styleText?: object;
     titleColor?: ButtonTextColor;
+    disabled?: boolean;
     onPress(): void;
 }
 
 export interface TextAppProps {
-    children: React.ReactNode
-    style?: object
+    children: React.ReactNode;
+    style?: object;
 }
 
 export interface BottomSheetContainerProps {

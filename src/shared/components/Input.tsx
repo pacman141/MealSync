@@ -4,7 +4,7 @@ import { Colors } from "../../assets";
 import { InputProps } from "../types/types";
 
 const Input = ({ style, ...props }: InputProps) => {
-    return <TextInput style={{ ...styles.textInput, ...style, backgroundColor: Colors.white }} {...props} />;
+    return <TextInput style={{ ...styles.textInput, ...style, backgroundColor: Colors.white }} {...props} placeholderTextColor={Colors.text}/>;
 };
 
 export default Input;

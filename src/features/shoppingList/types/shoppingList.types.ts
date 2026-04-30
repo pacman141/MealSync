@@ -61,3 +61,18 @@ export interface SortFormProps {
 export interface SearchFormProps {
     onChange(search: string): void;
 }
+
+export type ApiShoppingListsCollection<T> = {
+    "@context": string;
+    "@id": string;
+    "@type": string;
+    member: T[];
+};
+
+export type PlanningApi = {
+    "@id": string;
+    "@type": string;
+    weekNumber: number;
+    year: number;
+    planningRecipes: any[];
+};

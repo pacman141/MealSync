@@ -13,7 +13,6 @@ export const fetchMe = async () => {
  * Mise à jour user
  */
 export const updateMe = async (payload: PayloadUpdateMe) => {
-    console.log("🚀 ~ updateMe ~ payload:", payload)
     const { data } = await api.patch("/update_me", payload, {
         headers: {
             "Content-Type": "application/merge-patch+json",

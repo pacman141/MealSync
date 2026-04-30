@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import Input from "../../../shared/components/Input";
 import ButtonCustom from "../../../shared/components/ButtonCustom";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -19,7 +19,7 @@ export const LoginForm = ({ onClickRegister, onClickForgotPassword }: LoginFormP
 
     const handleLogin = async () => {
         if (!email || !password) return;
-        
+
         try {
             const data = await loginApi(email, password);
 
@@ -28,7 +28,7 @@ export const LoginForm = ({ onClickRegister, onClickForgotPassword }: LoginFormP
 
             navigation.replace("Main", { screen: "ShoppingList" });
         } catch (error: any) {
-            if(error?.response?.status === 401) {
+            if (error?.response?.status === 401) {
                 setError("Identifiants incorrects");
             } else {
                 setError("Une erreur est survenue");
@@ -37,7 +37,7 @@ export const LoginForm = ({ onClickRegister, onClickForgotPassword }: LoginFormP
     };
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior="height" style={{ flex: 1 }}>
             <View>
                 <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>
                     Se connecter
@@ -59,7 +59,7 @@ export const LoginForm = ({ onClickRegister, onClickForgotPassword }: LoginFormP
 
                 {/* Password */}
                 <View style={{ ...styles.inputGroup, marginBottom: 10 }}>
-                    <Icon name="password" size={20} color={Colors.text} />
+                    <Icon name="lock" size={20} color={Colors.text} />
                     <Input
                         placeholder="Mot de passe"
                         secureTextEntry={true}
@@ -80,7 +80,7 @@ export const LoginForm = ({ onClickRegister, onClickForgotPassword }: LoginFormP
 
             <View style={styles.bottomContainer}>
                 {error && <TextApp style={styles.error}>
-                    { error }
+                    {error}
                 </TextApp>}
 
                 <ButtonCustom
@@ -96,14 +96,11 @@ export const LoginForm = ({ onClickRegister, onClickForgotPassword }: LoginFormP
                     />
                 </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: "space-between",
-    },
     bottomContainer: {
         justifyContent: "center",
         marginTop: 50,

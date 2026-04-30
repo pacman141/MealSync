@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import Input from "../../../shared/components/Input";
 import ButtonCustom from "../../../shared/components/ButtonCustom";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -6,12 +6,10 @@ import { Colors, GlobalStyles } from "../../../assets";
 import { RegisterFormProps } from "../types/auth.types";
 import TextApp from "../../../shared/components/TextApp";
 
-export const RegisterForm = ({
-    onClickLogin,
-    onClickForgotPassword,
-}: RegisterFormProps) => {
+export const RegisterForm = ({ onClickLogin, onClickForgotPassword }: RegisterFormProps) => {
+
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView behavior="height" style={{ flex: 1 }}>
             <View>
                 <TextApp style={{ ...GlobalStyles.h1, ...styles.h1 }}>
                     Créer un compte
@@ -45,7 +43,7 @@ export const RegisterForm = ({
 
                 {/* Password */}
                 <View style={styles.inputGroup}>
-                    <Icon name="password" size={20} color={Colors.text} />
+                    <Icon name="lock" size={20} color={Colors.text} />
                     <Input
                         placeholder="Votre mot de passe"
                         secureTextEntry={true}
@@ -58,7 +56,7 @@ export const RegisterForm = ({
 
                 {/* Confirm Password */}
                 <View style={{ ...styles.inputGroup, marginBottom: 10 }}>
-                    <Icon name="password" size={20} color={Colors.text} />
+                    <Icon name="lock" size={20} color={Colors.text} />
                     <Input
                         placeholder="Confirmez votre mot de passe"
                         secureTextEntry={true}
@@ -86,14 +84,11 @@ export const RegisterForm = ({
                     <ButtonCustom title="Se connecter" onPress={onClickLogin} />
                 </View>
             </View>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: "space-between",
-    },
     bottomContainer: {
         justifyContent: "center",
         marginTop: 50,

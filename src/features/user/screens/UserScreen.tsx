@@ -1,107 +1,79 @@
-import { StyleSheet, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import ButtonCustom from "../../../shared/components/ButtonCustom";
+import { ActivityIndicator, StyleSheet, TouchableOpacity, View, KeyboardAvoidingView, ScrollView } from "react-native";
+import React from "react";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import { logout } from "../../auth/services/auth.service";
-import { useMe, useUpdateMe } from "../hooks/useUser";
+import { useMe } from "../hooks/useUser";
 import TextApp from "../../../shared/components/TextApp";
-import Input from "../../../shared/components/Input";
-import { GlobalStyles } from "../../../assets";
-import dayjs from "dayjs";
-import { UserState } from "../types/user.types";
+import { Colors, GlobalStyles } from "../../../assets";
+import { Typography } from "../../../assets/fonts";
+import ScreenContainer from "../../../shared/components/ScreenContainer";
+import { FormUser } from "../components/FormUser";
 
 export const UserScreen = () => {
     const { data: user, isLoading, error } = useMe();
-    const updateMe = useUpdateMe();
-
-    const [form, setForm] = useState<UserState>();
-
-    useEffect(() => {
-        if (user) {
-            setForm({
-                email: user.email ?? "",
-                userName: user.userName ?? "",
-                firstName: user.firstName ?? "",
-                lastName: user.lastName ?? "",
-                profilePicture: user.profilePicture ?? "",
-                dateOfBirth: user.dateOfBirth ?? "",
-            });
-        }
-    }, [user]);
 
     const handleDisconnect = () => {
         logout();
     };
 
-    const handleValidate = () => {
-        if (!form) return;
-        const data = updateMe.mutate(form);
-        console.log("🚀 ~ handleValidate ~ data:", data)
-    };
+    if (isLoading) {
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size={100} color={Colors.mainColor} />
+            </View>
+        );
+    }
+
+    if (error || !user) {
+        return (
+            <View style={styles.errorContainer}>
+                <TextApp style={styles.errorText}>Erreur de chargement</TextApp>
+            </View>
+        );
+    }
 
     return (
-        <View style={{ ...GlobalStyles.ph, ...styles.container }}>
-            {!isLoading && (
-                <>
-                    <TextApp>{user.email}</TextApp>
-                    <Input
-                        value={form?.email}
-                        autoCorrect={false}
-                        placeholder="Mon email"
-                        onChangeText={(val) => setForm({ ...form, email: val })}
-                    />
-                    <Input
-                        value={form?.userName ?? ""}
-                        placeholder="Mon pseudo"
-                        onChangeText={(val) =>
-                            setForm({ ...form, userName: val })
-                        }
-                    />
-                    <Input
-                        value={form?.firstName ?? ""}
-                        placeholder="Mon prénom"
-                        onChangeText={(val) =>
-                            setForm({ ...form, firstName: val })
-                        }
-                    />
-                    <Input
-                        value={form?.lastName ?? ""}
-                        placeholder="Mon nom"
-                        onChangeText={(val) =>
-                            setForm({ ...form, lastName: val })
-                        }
-                    />
-                    <Input
-                        value={form?.profilePicture ?? ""}
-                        placeholder="Ma photo"
-                        onChangeText={(val) =>
-                            setForm({ ...form, profilePicture: val })
-                        }
-                    />
-                    {/* <Input
-                        value={form?.dateOfBirth?.toDateString() ?? ""}
-                        placeholder="Ma date de naissance"
-                         onChangeText={(val) => setForm({...form, toDateString: val})}
-                    /> */}
-                    <TextApp>{user.createdAt}</TextApp>
-                </>
-            )}
-
-            <ButtonCustom
-                title="Valider"
-                onPress={handleValidate}
-                type="color"
-            />
-            <ButtonCustom
-                title="Se deconnecter"
-                onPress={handleDisconnect}
-                type="color"
-            />
-        </View>
+        <ScreenContainer safeAreaTop={false} bgColor={Colors.background}>
+            <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+                <ScrollView>
+                    <FormUser />
+                    <View style={GlobalStyles.ph}>
+                        <TouchableOpacity onPress={handleDisconnect} style={styles.btnLogout}>
+                            <Icon name="logout" size={20} color={Colors.danger} />
+                            <TextApp style={styles.btnLogoutText}>Se deconnecter</TextApp>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </ScreenContainer>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    errorContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    errorText: {
+        color: Colors.danger,
+        fontSize: 16,
+        fontFamily: Typography.semiBold
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    btnLogout: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    btnLogoutText: {
+        marginLeft: 4,
+        color: Colors.danger
     },
 });

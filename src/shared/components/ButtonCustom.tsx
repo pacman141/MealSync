@@ -5,25 +5,65 @@ import { ButtonCustomProps, ButtonTextProps } from "../types/types";
 import { Colors } from "../../assets";
 import TextApp from "./TextApp";
 
-const ButtonCustom = ({ title, type, styleButton, styleText, titleColor = "dark", onPress }: ButtonCustomProps) => {
-    const ButtonText = ({ color }: ButtonTextProps) => <TextApp style={{ color: color === "dark" ? Colors.text : Colors.white, fontSize: type ? 18 : 16, ...styleText }}>{title}</TextApp>;
+const ButtonCustom = ({ title, type, styleButton, styleText, titleColor = "dark", onPress, ...props }: ButtonCustomProps) => {
+    const ButtonText = ({ color }: ButtonTextProps) => (
+        <TextApp
+            style={{
+                color: color === "dark" ? Colors.text : Colors.white,
+                fontSize: type ? 18 : 16,
+                ...styleText,
+            }}
+        >
+            {title}
+        </TextApp>
+    );
 
     if (type === "color") {
         return (
-            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton, backgroundColor: Colors.mainColor }}>
+            <TouchableOpacity
+                onPress={onPress}
+                style={{
+                    ...styles.touchableOpacity,
+                    ...styleButton,
+                    backgroundColor: Colors.mainColor,
+                    opacity: props.disabled ? 0.5 : 1,
+                }}
+                {...props}
+            >
                 <ButtonText color="light" />
             </TouchableOpacity>
         );
     } else if (type === "light") {
         return (
-            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton, backgroundColor: Colors.secondaryColor }}>
+            <TouchableOpacity
+                onPress={onPress}
+                style={{
+                    ...styles.touchableOpacity,
+                    ...styleButton,
+                    backgroundColor: Colors.secondaryColor,
+                    opacity: props.disabled ? 0.5 : 1,
+                }}
+                {...props}
+            >
                 <ButtonText color="dark" />
             </TouchableOpacity>
         );
     } else if (type === "linear") {
         return (
-            <TouchableOpacity onPress={onPress} style={{ ...styles.touchableOpacity, ...styleButton }}>
-                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} colors={[Colors.linearStart, Colors.linearEnd]} style={styles.linearGradient}>
+            <TouchableOpacity
+                onPress={onPress}
+                style={{ ...styles.touchableOpacity, ...styleButton }}
+            >
+                <LinearGradient
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    colors={[Colors.linearStart, Colors.linearEnd]}
+                    style={{
+                        ...styles.linearGradient,
+                        opacity: props.disabled ? 0.5 : 1,
+                    }}
+                    {...props}
+                >
                     <ButtonText color="light" />
                 </LinearGradient>
             </TouchableOpacity>
